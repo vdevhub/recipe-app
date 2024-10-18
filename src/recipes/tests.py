@@ -105,3 +105,7 @@ class RecipeModelTest(TestCase):
             str(recipe),
             "Recipe Name: Tea\nCooking Time (Min): 5\nDifficulty: Easy\nIngredients: tea leaves, hot water, sugar",
         )
+
+    def test_get_absolute_url(self):
+        book = Recipe.objects.get(id=1)
+        self.assertEqual(book.get_absolute_url(), "/recipes/overview/1")
