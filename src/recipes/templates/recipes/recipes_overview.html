@@ -12,7 +12,9 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #eeeeee;
+      background: linear-gradient(to bottom, white, #f0f0f0, #d4e6f1);
+      background-attachment: fixed;
+      /* Keeps the gradient fixed on scroll */
     }
 
     /* Common container to ensure the panel and grid have the same width */
@@ -42,13 +44,11 @@
 
     /* Styling individual words in the title */
     .top-panel .recipe {
-      color: #ff5722;
-      /* Orange color for "Recipe" */
+      color: #ff9822;
     }
 
     .top-panel .overview {
-      color: #ff5722;
-      /* Black color for "Overview" */
+      color: #ff9822;
     }
 
     /* Centered grid of cards */
@@ -93,7 +93,7 @@
       left: 0;
       right: 0;
       height: 50px;
-      background-color: rgba(255, 87, 19, 0.5);
+      background-color: rgb(255, 152, 34, 0.8);
       color: white;
       display: flex;
       align-items: center;
