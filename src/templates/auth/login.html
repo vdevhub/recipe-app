@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* Use the same background as recipe overview */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, white, #f0f0f0, #d4e6f1);
+      background-attachment: fixed;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-container h1 {
+      font-family: 'Dancing Script', cursive;
+      color: #ff9822;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-container label {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: block;
+      text-align: left;
+      width: 100%;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .login-container input[type="submit"] {
+      background-color: #ff9822;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-container input[type="submit"]:hover {
+      background-color: #ff7d00;
+    }
+
+    .login-container .error-message {
+      color: red;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+
+    .login-container p {
+      margin-top: 10px;
+    }
+
+    .login-container a {
+      color: #ff9822;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+    <h1>Login</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {% if form.errors %}
+      <div class="error-message">
+        {% for field in form %}
+        {% for error in field.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+        {% endfor %}
+      </div>
+      {% endif %}
+      <!-- Username Field -->
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required>
+
+      <!-- Password Field -->
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+
+      <!-- Submit Button -->
+      <input type="submit" value="Login">
+    </form>
+  </div>
+
+</body>
+
+</html>
