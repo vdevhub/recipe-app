@@ -22,6 +22,52 @@
       padding: 0 20px;
     }
 
+    /* Top panel with logout button aligned to the right */
+    .top-pane {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-pane h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-family: 'Dancing Script', cursive;
+      color: #000;
+    }
+
+    /* Logout Button Styling */
+    .logout-button {
+      background-color: #ff9822;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      /* Remove underline */
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #ff7d00;
+    }
+
+    .logout-button .logout-icon {
+      margin-right: 8px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
     .recipe-detail-card {
       background-color: #ffffff;
       border-radius: 10px;
@@ -108,6 +154,15 @@
 </head>
 
 <body>
+  <!-- Top Pane with Logout Button -->
+  <div class="top-pane">
+    <h1>CookPal</h1>
+    <a href="{% url 'logout' %}">
+      <button class="logout-button">
+        <span class="logout-icon">↪</span> Logout
+      </button>
+    </a>
+  </div>
 
   <div class="container">
     <!-- Recipe Detail Card -->

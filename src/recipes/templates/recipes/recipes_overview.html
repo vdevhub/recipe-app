@@ -26,10 +26,55 @@
       /* Padding on the sides */
     }
 
-    /* Top panel with rounded corners */
+    /* Top panel with logout button aligned to the right */
+    .top-pane {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-pane h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-family: 'Dancing Script', cursive;
+      color: #000;
+    }
+
+    /* Logout Button Styling */
+    .logout-button {
+      background-color: #ff9822;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      /* Remove underline */
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #ff7d00;
+    }
+
+    .logout-button .logout-icon {
+      margin-right: 8px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* Top panel for main title */
     .top-panel {
       background-color: #8b8a8900;
-      /* Light gray background */
       padding: 20px;
       margin-bottom: 40px;
       text-align: center;
@@ -42,7 +87,6 @@
       font-weight: normal;
     }
 
-    /* Styling individual words in the title */
     .top-panel .recipe {
       color: #ff9822;
     }
@@ -66,15 +110,12 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       height: 370px;
-      /* Fixed height for consistency */
     }
 
     .recipe-card img {
       width: 100%;
       height: 100%;
-      /* Ensures the image fills the card */
       object-fit: cover;
-      /* Maintains aspect ratio */
       transition: transform 0.3s ease;
     }
 
@@ -119,6 +160,16 @@
 </head>
 
 <body>
+
+  <!-- Top Pane with Logout Button -->
+  <div class="top-pane">
+    <h1>CookPal</h1>
+    <a href="{% url 'logout' %}">
+      <button class="logout-button">
+        <span class="logout-icon">↪</span> Logout
+      </button>
+    </a>
+  </div>
 
   <!-- Common container for top panel and grid -->
   <div class="container">
