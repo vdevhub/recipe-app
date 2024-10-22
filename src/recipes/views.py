@@ -10,8 +10,6 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-# keep protected
-@login_required
 def home(request):
     return render(request, "recipes/recipes_home.html")
 
