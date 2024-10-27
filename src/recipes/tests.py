@@ -259,3 +259,33 @@ class RecipeAnalyticsTest(TestCase):
         self.assertContains(
             response, '<img src="data:image/png;base64,'
         )  # Check if charts are still rendering
+
+    def test_no_recipes_bar_chart(self):
+        response = self.client.get(
+            reverse("recipes:recipe_overview") + "?search_term=sugar"
+        )
+        self.assertContains(response, "No recipes available to display the bar chart.")
+
+    def test_no_recipes_pie_chart(self):
+        response = self.client.get(
+            reverse("recipes:recipe_overview") + "?search_term=sugar"
+        )
+        self.assertContains(response, "No recipes available to display the pie chart.")
+
+    def test_no_recipes_line_chart(self):
+        response = self.client.get(
+            reverse("recipes:recipe_overview") + "?search_term=sugar"
+        )
+        self.assertContains(response, "No recipes available to display the line chart.")
+
+    def test_charts_visible_when_recipes_exist(self):
+        response = self.client.get(reverse("recipes:recipe_overview"))
+        self.assertNotContains(
+            response, "No recipes available to display the bar chart."
+        )
+        self.assertNotContains(
+            response, "No recipes available to display the pie chart."
+        )
+        self.assertNotContains(
+            response, "No recipes available to display the line chart."
+        )
