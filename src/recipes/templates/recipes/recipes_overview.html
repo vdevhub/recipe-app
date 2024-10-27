@@ -156,6 +156,41 @@
     .overlay-bottom .icon {
       margin-right: 5px;
     }
+
+    /* Search Form Styling */
+    form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    form input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+    }
+
+    form button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff9822;
+      color: white;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    #showAll {
+      border-radius: 5px;
+      margin-left: 30px;
+    }
+
+    form button:hover {
+      background-color: #ff7d00;
+    }
   </style>
 </head>
 
@@ -182,6 +217,15 @@
       </h1>
     </div>
 
+    <!-- Search Form -->
+    <form action="" method="GET">
+      {% csrf_token %}
+      {{form.search_term}}
+      <button type="submit">Search</button>
+      <br>
+      <button type="button" id="showAll" onclick="clearSearch()">Show All</button>
+    </form>
+
     <!-- Recipe Grid -->
     <div class="recipe-grid">
       {% for recipe in object_list %}
@@ -196,6 +240,15 @@
     </div>
 
   </div>
+
+  <script>
+    function clearSearch() {
+      // Clears the search term input and submits the form to show all results
+      const searchInput = document.querySelector('input[name="search_term"]');
+      if (searchInput) searchInput.value = ''; // Clear the input
+      document.querySelector('form').submit(); // Submit form with empty input
+    }
+  </script>
 
 </body>
 
