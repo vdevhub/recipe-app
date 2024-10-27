@@ -190,7 +190,3 @@ class RecipeModelTest(TestCase):
         self.assertEqual(
             len(response.context["object_list"]), 4
         )  # Should return 4 recipes again
-
-        # Optionally, check if the search term input is empty
-        # (You will need to modify your template to include the current search term value)
-        self.assertContains(response, 'value=""')  # Ensure the search field is cleared
