@@ -1,16 +1,44 @@
 from django.test import TestCase
 from .models import Recipe
 from users.models import User
+from .forms import RecipeSearchForm
+from django.contrib.auth import get_user_model
+from django.shortcuts import reverse
 
 
 # Create your tests here.
 class RecipeModelTest(TestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpass"
+        )
+        self.client.login(username="testuser", password="testpass")
+
     # Set up non-modified objects used by all test methods
     def setUpTestData():
         Recipe.objects.create(
             name="Tea",
             cooking_time=5,
             ingredients="tea leaves, hot water, sugar",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+        Recipe.objects.create(
+            name="Chocolate Cake",
+            cooking_time=90,
+            ingredients="flour, cocoa, eggs",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+        Recipe.objects.create(
+            name="Spaghetti Bolognese",
+            cooking_time=30,
+            ingredients="spaghetti, beef, tomatoes",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+        Recipe.objects.create(
+            name="Pancakes",
+            cooking_time=30,
+            ingredients="flour, milk, eggs",
             user=User.objects.create(username="testuser", password="testpassword"),
         )
 
@@ -109,3 +137,60 @@ class RecipeModelTest(TestCase):
     def test_get_absolute_url(self):
         book = Recipe.objects.get(id=1)
         self.assertEqual(book.get_absolute_url(), "/recipes/overview/1")
+
+    def test_search_form_initialization(self):
+        # Test that the search form initializes correctly
+        form = RecipeSearchForm()
+        self.assertTrue(form.fields["search_term"].label is None)
+
+    def test_search_by_name(self):
+        # Test searching by recipe name
+        response = self.client.get(
+            reverse("recipes:recipe_overview"), {"search_term": "Chocolate"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Chocolate Cake")
+        self.assertNotContains(response, "Spaghetti Bolognese")
+        self.assertNotContains(response, "Pancakes")
+        self.assertNotContains(response, "Tea")
+
+    def test_search_by_ingredient(self):
+        # Test searching by an ingredient
+        response = self.client.get(
+            reverse("recipes:recipe_overview"), {"search_term": "flour"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Chocolate Cake")
+        self.assertContains(response, "Pancakes")
+        self.assertNotContains(response, "Spaghetti Bolognese")
+        self.assertNotContains(response, "Tea")
+
+    def test_show_all_recipes(self):
+        # Initially, check that the number of recipes is correct
+        response = self.client.get(reverse("recipes:recipe_overview"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            len(response.context["object_list"]), 4
+        )  # There should be 4 recipes
+
+        # Simulate searching for a recipe
+        response = self.client.get(
+            reverse("recipes:recipe_overview"), {"search_term": "Pancakes"}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            len(response.context["object_list"]), 1
+        )  # Should return 1 recipe
+
+        # Click on the Show All button
+        response = self.client.get(
+            reverse("recipes:recipe_overview"), {"search_term": ""}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            len(response.context["object_list"]), 4
+        )  # Should return 4 recipes again
+
+        # Optionally, check if the search term input is empty
+        # (You will need to modify your template to include the current search term value)
+        self.assertContains(response, 'value=""')  # Ensure the search field is cleared
