@@ -143,6 +143,21 @@ class RecipeSearchTest(TestCase):
             user=User.objects.create(username="testuser", password="testpassword"),
         )
 
+    def test_search_term_max_length(self):
+        # Create a search term that exceeds the maximum length
+        long_search_term = "x" * 121  # 121 characters long, exceeding the limit
+
+        form_data = {"search_term": long_search_term}
+        form = RecipeSearchForm(data=form_data)
+
+        # Check that the form is not valid
+        self.assertFalse(form.is_valid())
+        # Check that the correct error message is returned for the search_term field
+        self.assertIn(
+            "Ensure this value has at most 120 characters (it has 121).",
+            str(form.errors["search_term"]),
+        )
+
     def test_search_form_initialization(self):
         # Test that the search form initializes correctly
         form = RecipeSearchForm()
@@ -289,3 +304,52 @@ class RecipeAnalyticsTest(TestCase):
         self.assertNotContains(
             response, "No recipes available to display the line chart."
         )
+
+
+class RecipeViewsProtectionsTest(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpass"
+        )
+
+        # Create a test recipe
+        self.recipe = Recipe.objects.create(
+            name="Test Recipe",
+            cooking_time=30,
+            ingredients="Ingredient 1, Ingredient 2",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+
+    def test_recipe_list_view_login_required(self):
+        # Attempt to access the recipe list view while logged out
+        response = self.client.get(
+            reverse("recipes:recipe_overview")
+        )  # Use the appropriate URL name
+        self.assertEqual(response.status_code, 302)  # Should redirect to login page
+
+    def test_recipe_list_view_logged_in(self):
+        # Log in the user
+        self.client.login(username="testuser", password="testpass")
+
+        # Access the recipe list view while logged in
+        response = self.client.get(
+            reverse("recipes:recipe_overview")
+        )  # Use the appropriate URL name
+        self.assertEqual(response.status_code, 200)  # Should return 200 OK
+
+    def test_recipe_detail_view_login_required(self):
+        # Attempt to access the recipe detail view while logged out
+        response = self.client.get(
+            reverse("recipes:recipe_detail", args=[self.recipe.id])
+        )  # Use the appropriate URL name
+        self.assertEqual(response.status_code, 302)  # Should redirect to login page
+
+    def test_recipe_detail_view_logged_in(self):
+        # Log in the user
+        self.client.login(username="testuser", password="testpass")
+
+        # Access the recipe detail view while logged in
+        response = self.client.get(
+            reverse("recipes:recipe_detail", args=[self.recipe.id])
+        )  # Use the appropriate URL name
+        self.assertEqual(response.status_code, 200)  # Should return 200 OK
