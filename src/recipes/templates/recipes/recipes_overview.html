@@ -173,7 +173,8 @@
       outline: none;
     }
 
-    form button {
+    form button,
+    #show-analytics-btn {
       padding: 10px 20px;
       font-size: 1rem;
       background-color: #ff9822;
@@ -188,8 +189,52 @@
       margin-left: 30px;
     }
 
-    form button:hover {
+    #show-analytics-btn {
+      border-radius: 5px;
+
+    }
+
+    .center-button {
+      display: flex;
+      /* Use flexbox */
+      justify-content: center;
+      /* Center horizontally */
+      margin: 20px 0;
+      /* Add some space above and below the button */
+    }
+
+    form button:hover,
+    #show-analytics-btn:hover {
       background-color: #ff7d00;
+    }
+
+    .charts-container {
+      display: flex;
+      /* Use flexbox for layout */
+      flex-wrap: wrap;
+      /* Allow wrapping to the next row */
+      justify-content: center;
+      /* Center the charts */
+      gap: 20px;
+      /* Add space between items */
+      margin: 20px 0;
+      /* Margin above and below the charts */
+    }
+
+    .chart-item {
+      flex: 0 0 50%;
+      /* Allow each chart item to take up to 45% of the row */
+      max-width: 48%;
+      /* Set a max width for each chart */
+      text-align: center;
+      /* Center align the text */
+    }
+
+    .chart-item img {
+      width: 100%;
+      /* Make the image responsive */
+      height: auto;
+      /* Maintain aspect ratio */
     }
   </style>
 </head>
@@ -226,6 +271,29 @@
       <button type="button" id="showAll" onclick="clearSearch()">Show All</button>
     </form>
 
+    <!-- Button to Show Analytics -->
+    <div class="center-button">
+      <button id="show-analytics-btn">Show Analytics</button>
+    </div>
+
+    <!-- Modal/Section for displaying charts -->
+    <div id="analytics-section" style="display: none;">
+      <div class="charts-container">
+        <div class="chart-item">
+          <h3>Number of Recipes by Difficulty Level</h3>
+          <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar Chart">
+        </div>
+        <div class="chart-item">
+          <h3>Distribution of Recipes by Cooking Time</h3>
+          <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
+        </div>
+        <div class="chart-item">
+          <h3>Average Cooking Time by Difficulty</h3>
+          <img src="data:image/png;base64,{{ line_chart }}" alt="Line Chart">
+        </div>
+      </div>
+    </div>
+
     <!-- Recipe Grid -->
     <div class="recipe-grid">
       {% for recipe in object_list %}
@@ -248,6 +316,20 @@
       if (searchInput) searchInput.value = ''; // Clear the input
       document.querySelector('form').submit(); // Submit form with empty input
     }
+
+    document.getElementById("show-analytics-btn").addEventListener("click", function () {
+      const analyticsSection = document.getElementById("analytics-section");
+      const button = document.getElementById("show-analytics-btn"); // Get the button element
+
+      // Toggle the visibility of the analytics section
+      if (analyticsSection.style.display === "none" || analyticsSection.style.display === "") {
+        analyticsSection.style.display = "block"; // Show analytics
+        button.textContent = "Hide Analytics"; // Change button text
+      } else {
+        analyticsSection.style.display = "none"; // Hide analytics
+        button.textContent = "Show Analytics"; // Revert button text
+      }
+    });
   </script>
 
 </body>

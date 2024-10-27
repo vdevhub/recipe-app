@@ -13,6 +13,8 @@ from .forms import RecipeSearchForm
 from django.db.models import Q
 import pandas as pd
 
+from .utils import plot_bar_chart, plot_pie_chart, plot_line_chart
+
 
 # Create your views here.
 def home(request):
@@ -44,15 +46,13 @@ class RecipeListView(LoginRequiredMixin, ListView):
         context["form"] = RecipeSearchForm(
             initial={"search_term": self.request.GET.get("search_term", "")}
         )
-        return context
+        # Get the current recipes displayed
+        current_recipes = self.get_queryset()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # Add search form to context
-        context["form"] = RecipeSearchForm(
-            self.request.GET or None
-        )  # Prefill with search term if available
+        # Generate charts based on the current recipes
+        context["bar_chart"] = plot_bar_chart(current_recipes)
+        context["pie_chart"] = plot_pie_chart(current_recipes)
+        context["line_chart"] = plot_line_chart(current_recipes)
         return context
 
 
