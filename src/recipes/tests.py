@@ -8,37 +8,12 @@ from django.shortcuts import reverse
 
 # Create your tests here.
 class RecipeModelTest(TestCase):
-    def setUp(self):
-        # Create a test user
-        self.user = get_user_model().objects.create_user(
-            username="testuser", password="testpass"
-        )
-        self.client.login(username="testuser", password="testpass")
-
     # Set up non-modified objects used by all test methods
     def setUpTestData():
         Recipe.objects.create(
             name="Tea",
             cooking_time=5,
             ingredients="tea leaves, hot water, sugar",
-            user=User.objects.create(username="testuser", password="testpassword"),
-        )
-        Recipe.objects.create(
-            name="Chocolate Cake",
-            cooking_time=90,
-            ingredients="flour, cocoa, eggs",
-            user=User.objects.create(username="testuser", password="testpassword"),
-        )
-        Recipe.objects.create(
-            name="Spaghetti Bolognese",
-            cooking_time=30,
-            ingredients="spaghetti, beef, tomatoes",
-            user=User.objects.create(username="testuser", password="testpassword"),
-        )
-        Recipe.objects.create(
-            name="Pancakes",
-            cooking_time=30,
-            ingredients="flour, milk, eggs",
             user=User.objects.create(username="testuser", password="testpassword"),
         )
 
@@ -138,6 +113,36 @@ class RecipeModelTest(TestCase):
         book = Recipe.objects.get(id=1)
         self.assertEqual(book.get_absolute_url(), "/recipes/overview/1")
 
+
+class RecipeSearchTest(TestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpass"
+        )
+        self.client.login(username="testuser", password="testpass")
+
+    # Set up non-modified objects used by all test methods
+    def setUpTestData():
+        Recipe.objects.create(
+            name="Chocolate Cake",
+            cooking_time=90,
+            ingredients="flour, cocoa, eggs",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+        Recipe.objects.create(
+            name="Spaghetti Bolognese",
+            cooking_time=30,
+            ingredients="spaghetti, beef, tomatoes",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+        Recipe.objects.create(
+            name="Pancakes",
+            cooking_time=30,
+            ingredients="flour, milk, eggs",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+
     def test_search_form_initialization(self):
         # Test that the search form initializes correctly
         form = RecipeSearchForm()
@@ -152,7 +157,6 @@ class RecipeModelTest(TestCase):
         self.assertContains(response, "Chocolate Cake")
         self.assertNotContains(response, "Spaghetti Bolognese")
         self.assertNotContains(response, "Pancakes")
-        self.assertNotContains(response, "Tea")
 
     def test_search_by_ingredient(self):
         # Test searching by an ingredient
@@ -163,14 +167,13 @@ class RecipeModelTest(TestCase):
         self.assertContains(response, "Chocolate Cake")
         self.assertContains(response, "Pancakes")
         self.assertNotContains(response, "Spaghetti Bolognese")
-        self.assertNotContains(response, "Tea")
 
     def test_show_all_recipes(self):
         # Initially, check that the number of recipes is correct
         response = self.client.get(reverse("recipes:recipe_overview"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            len(response.context["object_list"]), 4
+            len(response.context["object_list"]), 3
         )  # There should be 4 recipes
 
         # Simulate searching for a recipe
@@ -188,8 +191,38 @@ class RecipeModelTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            len(response.context["object_list"]), 4
+            len(response.context["object_list"]), 3
         )  # Should return 4 recipes again
+
+
+class RecipeAnalyticsTest(TestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpass"
+        )
+        self.client.login(username="testuser", password="testpass")
+
+    # Set up non-modified objects used by all test methods
+    def setUpTestData():
+        Recipe.objects.create(
+            name="Chocolate Cake",
+            cooking_time=90,
+            ingredients="flour, cocoa, eggs",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+        Recipe.objects.create(
+            name="Spaghetti Bolognese",
+            cooking_time=30,
+            ingredients="spaghetti, beef, tomatoes",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
+        Recipe.objects.create(
+            name="Pancakes",
+            cooking_time=30,
+            ingredients="flour, milk, eggs",
+            user=User.objects.create(username="testuser", password="testpassword"),
+        )
 
     def test_analytics_visibility(self):
         response = self.client.get(
@@ -221,7 +254,7 @@ class RecipeModelTest(TestCase):
         # First, ensure there are some recipes to search
         # self.client.post(reverse('add_recipe'), data={...})  # Add test data as needed
         response = self.client.get(
-            reverse("recipes:recipe_overview") + "?search_term=sugar"
+            reverse("recipes:recipe_overview") + "?search_term=flour"
         )
         self.assertContains(
             response, '<img src="data:image/png;base64,'
