@@ -190,3 +190,39 @@ class RecipeModelTest(TestCase):
         self.assertEqual(
             len(response.context["object_list"]), 4
         )  # Should return 4 recipes again
+
+    def test_analytics_visibility(self):
+        response = self.client.get(
+            reverse("recipes:recipe_overview")
+        )  # Adjust the URL name if necessary
+        self.assertContains(
+            response, 'style="display: none;"'
+        )  # Check if analytics section is initially hidden
+
+    def test_charts_rendering(self):
+        response = self.client.get(reverse("recipes:recipe_overview"))
+        self.assertContains(
+            response, '<img src="data:image/png;base64,'
+        )  # Check if the images are present
+
+    def test_number_of_charts(self):
+        response = self.client.get(reverse("recipes:recipe_overview"))
+        self.assertIsNotNone(
+            response.context["bar_chart"], None
+        )  # Check if bar chart data is not None
+        self.assertIsNotNone(
+            response.context["pie_chart"], None
+        )  # Check if pie chart data is not None
+        self.assertIsNotNone(
+            response.context["line_chart"], None
+        )  # Check if line chart data is not None
+
+    def test_search_and_render_charts(self):
+        # First, ensure there are some recipes to search
+        # self.client.post(reverse('add_recipe'), data={...})  # Add test data as needed
+        response = self.client.get(
+            reverse("recipes:recipe_overview") + "?search_term=sugar"
+        )
+        self.assertContains(
+            response, '<img src="data:image/png;base64,'
+        )  # Check if charts are still rendering
