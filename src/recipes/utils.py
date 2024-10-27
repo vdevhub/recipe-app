@@ -32,6 +32,9 @@ def get_graph():
 
 
 def plot_bar_chart(recipes):
+    if not recipes:  # Check if there are no recipes
+        return "No recipes available to display the bar chart."
+
     difficulties = [recipe.difficulty for recipe in recipes]
     difficulty_counts = Counter(difficulties)
 
@@ -50,6 +53,9 @@ def plot_bar_chart(recipes):
 
 
 def plot_pie_chart(recipes):
+    if not recipes:  # Check if there are no recipes
+        return "No recipes available to display the pie chart."
+
     cooking_times = [recipe.cooking_time for recipe in recipes]
 
     time_ranges = ["0-30 mins", "31-60 mins", "61+ mins"]
@@ -75,6 +81,9 @@ def plot_pie_chart(recipes):
 
 
 def plot_line_chart(recipes):
+    if not recipes:  # Check if there are no recipes
+        return "No recipes available to display the line chart."
+
     # Aggregate cooking time by difficulty
     difficulty_data = {}
     for recipe in recipes:

@@ -285,16 +285,27 @@
       <div class="charts-container">
         <div class="chart-item">
           <h3>Number of Recipes by Difficulty Level</h3>
+          {% if bar_chart == "No recipes available to display the bar chart." %}
+          <p>{{ bar_chart }}</p>
+          {% else %}
           <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar Chart">
+          {% endif %}
         </div>
         <div class="chart-item">
           <h3>Average Cooking Time by Difficulty</h3>
+          {% if line_chart == "No recipes available to display the line chart." %}
+          <p>{{ line_chart }}</p>
+          {% else %}
           <img src="data:image/png;base64,{{ line_chart }}" alt="Line Chart">
+          {% endif %}
         </div>
       </div>
       <div class="chart-item">
-        <h3>Distribution of Recipes by Cooking Time</h3>
+        {% if pie_chart == "No recipes available to display the pie chart." %}
+        <p>{{ pie_chart }}</p>
+        {% else %}
         <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
+        {% endif %}
       </div>
     </div>
 
