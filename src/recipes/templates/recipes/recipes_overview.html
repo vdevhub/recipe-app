@@ -208,6 +208,10 @@
       background-color: #ff7d00;
     }
 
+    #analytics-section {
+      margin-bottom: 50px;
+    }
+
     .charts-container {
       display: flex;
       /* Use flexbox for layout */
@@ -217,7 +221,7 @@
       /* Center the charts */
       gap: 20px;
       /* Add space between items */
-      margin: 20px 0;
+      margin: 30px 0;
       /* Margin above and below the charts */
     }
 
@@ -284,13 +288,13 @@
           <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar Chart">
         </div>
         <div class="chart-item">
-          <h3>Distribution of Recipes by Cooking Time</h3>
-          <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
-        </div>
-        <div class="chart-item">
           <h3>Average Cooking Time by Difficulty</h3>
           <img src="data:image/png;base64,{{ line_chart }}" alt="Line Chart">
         </div>
+      </div>
+      <div class="chart-item">
+        <h3>Distribution of Recipes by Cooking Time</h3>
+        <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
       </div>
     </div>
 
