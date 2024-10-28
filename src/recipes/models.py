@@ -11,7 +11,7 @@ class Recipe(models.Model):
         max_length=300, help_text="Enter the ingredients as comma-separated list"
     )
     directions = models.CharField(
-        max_length=1500, help_text="Enter the directions for your recipe", default="TBA"
+        max_length=1500, help_text="Enter the directions for your recipe"
     )
     difficulty = models.CharField(max_length=12, blank=True)
     pic = models.ImageField(upload_to="recipes", default="no_picture.jpg")
