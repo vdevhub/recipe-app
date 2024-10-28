@@ -67,14 +67,14 @@
           <img src="data:image/png;base64,{{ line_chart }}" alt="Line Chart">
           {% endif %}
         </div>
-      </div>
-      <div class="chart-item">
-        <h3>Distribution of Recipes by Cooking Time</h3>
-        {% if pie_chart == "No recipes available to display the pie chart." %}
-        <p>{{ pie_chart }}</p>
-        {% else %}
-        <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
-        {% endif %}
+        <div class="chart-item">
+          <h3>Distribution of Recipes by Cooking Time</h3>
+          {% if pie_chart == "No recipes available to display the pie chart." %}
+          <p>{{ pie_chart }}</p>
+          {% else %}
+          <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
+          {% endif %}
+        </div>
       </div>
     </div>
 
