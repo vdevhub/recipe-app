@@ -30,6 +30,10 @@ body {
   color: #000;
 }
 
+.top-pane h1 a:visited {
+  color: #000;
+}
+
 /* Logout Button Styling */
 .logout-button {
   background-color: #ff9822;

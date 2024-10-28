@@ -13,7 +13,7 @@
 <body>
   <!-- Top Pane with Logout Button -->
   <div class="top-pane">
-    <h1>CookPal</h1>
+    <h1><a href="{% url 'recipes:recipe_overview' %}">CookPal</a></h1>
     <a href="{% url 'logout' %}">
       <button class="logout-button">
         <span class="logout-icon">↪</span> Logout
