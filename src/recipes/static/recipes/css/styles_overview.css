@@ -283,6 +283,7 @@ form button:hover,
   /* Takes the full height of the viewport */
   background-color: rgba(0, 0, 0, 0.4);
   /* Semi-transparent background */
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -352,6 +353,10 @@ form button:hover,
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 100%;
+}
+
+#addRecipeForm textarea {
+  max-height: 70px;
 }
 
 #addRecipeForm button[type="submit"] {
