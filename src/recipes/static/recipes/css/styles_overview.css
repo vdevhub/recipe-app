@@ -90,6 +90,10 @@ a {
 }
 
 /* Centered grid of cards */
+#recipes-display {
+  margin-top: 50px;
+}
+
 .no-recipes-msg {
   display: flex;
   justify-content: center;
@@ -102,7 +106,6 @@ a {
 }
 
 .no-recipes-msg p {
-  margin-top: 50px;
   padding: 20px;
   background-color: #f0f0f0;
   /* Optional: add background color */

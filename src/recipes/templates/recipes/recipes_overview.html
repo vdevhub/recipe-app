@@ -79,24 +79,25 @@
     </div>
 
     <!-- Recipe Grid -->
-    {% if not object_list %}
-    <div class="no-recipes-msg">
-      <p>No recipes found.</p>
-    </div>
-    {% else %}
-    <div class="recipe-grid">
-      {% for recipe in object_list %}
-      <div class="recipe-card" onclick="location.href='{{ recipe.get_absolute_url }}'">
-        <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}">
-        <div class="overlay-top">{{ recipe.name }}</div>
-        <div class="overlay-bottom">
-          <span class="icon">⏱</span>{{ recipe.cooking_time }}m
-        </div>
+    <div id="recipes-display">
+      {% if not object_list %}
+      <div class="no-recipes-msg">
+        <p>No recipes found.</p>
       </div>
-      {% endfor %}
+      {% else %}
+      <div class="recipe-grid">
+        {% for recipe in object_list %}
+        <div class="recipe-card" onclick="location.href='{{ recipe.get_absolute_url }}'">
+          <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}">
+          <div class="overlay-top">{{ recipe.name }}</div>
+          <div class="overlay-bottom">
+            <span class="icon">⏱</span>{{ recipe.cooking_time }}m
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
-    {% endif %}
-
   </div>
 </body>
 
