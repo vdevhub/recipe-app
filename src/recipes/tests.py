@@ -14,7 +14,6 @@ class RecipeModelTest(TestCase):
             name="Tea",
             cooking_time=5,
             ingredients="tea leaves, hot water, sugar",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
 
     def test_recipe_name(self):
@@ -49,18 +48,6 @@ class RecipeModelTest(TestCase):
         # Compare the value to the expected result
         self.assertEqual(field_label, "ingredients")
         self.assertEqual(recipe.ingredients, "tea leaves, hot water, sugar")
-
-    def test_recipe_user(self):
-        # Get a recipe object to test
-        recipe = Recipe.objects.get(id=1)
-
-        # Get the metadata for the 'name' field and use it to query its data
-        field_label = recipe._meta.get_field("user").verbose_name
-
-        # Compare the value to the expected result
-        self.assertEqual(field_label, "user")
-        self.assertEqual(recipe.user.username, "testuser")
-        self.assertEqual(recipe.user.password, "testpassword")
 
     def test_recipe_name_max_length(self):
         # Get a recipe object to test
@@ -128,19 +115,16 @@ class RecipeSearchTest(TestCase):
             name="Chocolate Cake",
             cooking_time=90,
             ingredients="flour, cocoa, eggs",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
         Recipe.objects.create(
             name="Spaghetti Bolognese",
             cooking_time=30,
             ingredients="spaghetti, beef, tomatoes",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
         Recipe.objects.create(
             name="Pancakes",
             cooking_time=30,
             ingredients="flour, milk, eggs",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
 
     def test_search_term_max_length(self):
@@ -224,19 +208,16 @@ class RecipeAnalyticsTest(TestCase):
             name="Chocolate Cake",
             cooking_time=90,
             ingredients="flour, cocoa, eggs",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
         Recipe.objects.create(
             name="Spaghetti Bolognese",
             cooking_time=30,
             ingredients="spaghetti, beef, tomatoes",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
         Recipe.objects.create(
             name="Pancakes",
             cooking_time=30,
             ingredients="flour, milk, eggs",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
 
     def test_analytics_visibility(self):
@@ -317,7 +298,6 @@ class RecipeViewsProtectionsTest(TestCase):
             name="Test Recipe",
             cooking_time=30,
             ingredients="Ingredient 1, Ingredient 2",
-            user=User.objects.create(username="testuser", password="testpassword"),
         )
 
     def test_recipe_list_view_login_required(self):
