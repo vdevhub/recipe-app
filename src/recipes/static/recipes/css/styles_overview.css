@@ -1,0 +1,232 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, white, #f0f0f0, #d4e6f1);
+  background-attachment: fixed;
+  /* Keeps the gradient fixed on scroll */
+}
+
+/* Common container to ensure the panel and grid have the same width */
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  /* Center the container */
+  padding: 0 20px;
+  /* Padding on the sides */
+}
+
+/* Top panel with logout button aligned to the right */
+.top-pane {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.top-pane h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-family: 'Dancing Script', cursive;
+  color: #000;
+}
+
+/* Logout Button Styling */
+.logout-button {
+  background-color: #ff9822;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  /* Remove underline */
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #ff7d00;
+}
+
+.logout-button .logout-icon {
+  margin-right: 8px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Top panel for main title */
+.top-panel {
+  background-color: #8b8a8900;
+  padding: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.top-panel h1 {
+  margin: 0;
+  font-size: 3rem;
+  font-family: 'Dancing Script', cursive;
+  font-weight: normal;
+}
+
+.top-panel .recipe {
+  color: #ff9822;
+}
+
+.top-panel .overview {
+  color: #ff9822;
+}
+
+/* Centered grid of cards */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.recipe-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 370px;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.recipe-card:hover img {
+  transform: scale(1.1);
+}
+
+.overlay-top,
+.overlay-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.overlay-top {
+  top: 0;
+  font-size: 20px;
+  font-family: 'Dancing Script', cursive;
+}
+
+.overlay-bottom {
+  bottom: 0;
+  font-size: 16px;
+}
+
+.overlay-bottom .icon {
+  margin-right: 5px;
+}
+
+/* Search Form Styling */
+form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+form input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+form button,
+#show-analytics-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ff9822;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+#showAll {
+  border-radius: 5px;
+  margin-left: 30px;
+}
+
+#show-analytics-btn {
+  border-radius: 5px;
+
+}
+
+.center-button {
+  display: flex;
+  /* Use flexbox */
+  justify-content: center;
+  /* Center horizontally */
+  margin: 20px 0;
+  /* Add some space above and below the button */
+}
+
+form button:hover,
+#show-analytics-btn:hover {
+  background-color: #ff7d00;
+}
+
+#analytics-section {
+  margin-bottom: 50px;
+}
+
+.charts-container {
+  display: flex;
+  /* Use flexbox for layout */
+  flex-wrap: wrap;
+  /* Allow wrapping to the next row */
+  justify-content: center;
+  /* Center the charts */
+  gap: 20px;
+  /* Add space between items */
+  margin: 30px 0;
+  /* Margin above and below the charts */
+}
+
+.chart-item {
+  flex: 0 0 50%;
+  /* Allow each chart item to take up to 45% of the row */
+  max-width: 48%;
+  /* Set a max width for each chart */
+  text-align: center;
+  /* Center align the text */
+}
+
+.chart-item img {
+  width: 100%;
+  /* Make the image responsive */
+  height: auto;
+  /* Maintain aspect ratio */
+}

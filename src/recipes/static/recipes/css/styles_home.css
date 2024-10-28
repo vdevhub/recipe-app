@@ -1,0 +1,56 @@
+ html,
+ body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+   font-family: Arial, sans-serif;
+ }
+
+ .welcome-page {
+   background: url("/static/recipes/images/app-bkg.jpg") no-repeat center center/cover;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+ }
+
+ .overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(0, 0, 0, 0.5);
+ }
+
+ .content {
+   position: relative;
+   text-align: center;
+   color: white;
+   z-index: 1;
+ }
+
+ h1 {
+   font-size: 90px;
+   /* Bigger font size */
+   font-style: italic;
+   /* Italic text */
+   margin-bottom: 20px;
+   font-family: 'Dancing Script', cursive;
+   /* Apply script font */
+ }
+
+ button {
+   padding: 15px 30px;
+   font-size: 18px;
+   background-color: #ff9822;
+   border: none;
+   border-radius: 5px;
+   color: white;
+   cursor: pointer;
+ }
+
+ button:hover {
+   background-color: #e64a19;
+ }

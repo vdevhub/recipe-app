@@ -1,0 +1,142 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, white, #f0f0f0, #d4e6f1);
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Top panel with logout button aligned to the right */
+.top-pane {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.top-pane h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-family: 'Dancing Script', cursive;
+  color: #000;
+}
+
+/* Logout Button Styling */
+.logout-button {
+  background-color: #ff9822;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  /* Remove underline */
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #ff7d00;
+}
+
+.logout-button .logout-icon {
+  margin-right: 8px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.recipe-detail-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.recipe-detail-card img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.recipe-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.recipe-info h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #ff9822;
+  margin: 0 0 10px;
+}
+
+.recipe-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.recipe-meta span {
+  display: flex;
+  align-items: center;
+}
+
+.recipe-meta span .icon {
+  margin-right: 8px;
+}
+
+.recipe-ingredients {
+  margin-bottom: 20px;
+}
+
+.recipe-ingredients h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* Multi-column ingredients list */
+.ingredients-list {
+  columns: 2;
+  /* Create 2 columns */
+  column-gap: 40px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredients-list li {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.recipe-directions {
+  margin-top: 30px;
+}
+
+.recipe-directions h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.recipe-directions p {
+  line-height: 1.6;
+  font-size: 16px;
+}
