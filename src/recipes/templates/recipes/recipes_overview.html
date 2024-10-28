@@ -79,6 +79,11 @@
     </div>
 
     <!-- Recipe Grid -->
+    {% if not object_list %}
+    <div class="no-recipes-msg">
+      <p>No recipes found.</p>
+    </div>
+    {% else %}
     <div class="recipe-grid">
       {% for recipe in object_list %}
       <div class="recipe-card" onclick="location.href='{{ recipe.get_absolute_url }}'">
@@ -90,6 +95,7 @@
       </div>
       {% endfor %}
     </div>
+    {% endif %}
 
   </div>
 </body>

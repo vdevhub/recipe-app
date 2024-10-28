@@ -86,6 +86,26 @@ a {
 }
 
 /* Centered grid of cards */
+.no-recipes-msg {
+  display: flex;
+  justify-content: center;
+  /* Centers horizontally */
+  text-align: center;
+  font-size: 1.2rem;
+  /* Adjust font size as needed */
+  color: #333;
+  /* Adjust color to match your theme */
+}
+
+.no-recipes-msg p {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  /* Optional: add background color */
+  border-radius: 8px;
+  /* Optional: rounded corners */
+}
+
 .recipe-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
