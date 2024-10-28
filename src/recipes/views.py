@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView
 from .models import Recipe
 
 # to protect class-based view
@@ -9,11 +10,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 # to search and query results
-from .forms import RecipeSearchForm
+from .forms import RecipeSearchForm, RecipeForm
 from django.db.models import Q
 import pandas as pd
 
 from .utils import plot_bar_chart, plot_pie_chart, plot_line_chart
+from django.http import JsonResponse
+from django.contrib.auth import get_user
 
 
 # Create your views here.
@@ -70,3 +73,21 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
         ]
 
         return context
+
+
+@login_required
+def recipe_add_form(request):
+    form = RecipeForm()
+    return render(request, "recipes/partials/recipe_form.html", {"form": form})
+
+
+@login_required
+def recipe_add(request):
+    if request.method == "POST":
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.save()
+            return JsonResponse({"status": "success"}, status=200)
+        else:
+            return JsonResponse({"status": "error", "errors": form.errors}, status=400)

@@ -46,6 +46,7 @@
     <!-- Button to Show Analytics -->
     <div class="center-button">
       <button id="show-analytics-btn">Show Analytics</button>
+      <button id="add-recipe-btn" class="add-recipe-btn">Add Recipe</button>
     </div>
 
     <!-- Modal/Section for displaying charts -->
@@ -75,6 +76,18 @@
           <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
           {% endif %}
         </div>
+      </div>
+    </div>
+
+    <!-- Add Recipe Modal -->
+    <div id="addRecipeModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Add New Recipe</h2>
+        <form id="addRecipeForm" data-post-url="{% url 'recipes:recipe_add' %}">
+          {% csrf_token %}
+          <!-- Form fields will be rendered via JavaScript -->
+        </form>
       </div>
     </div>
 

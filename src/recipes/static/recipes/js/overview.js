@@ -18,3 +18,46 @@ document.getElementById("show-analytics-btn").addEventListener("click", function
     button.textContent = "Show Analytics"; // Revert button text
   }
 });
+
+// Function to open the modal
+document.getElementById("add-recipe-btn").onclick = function () {
+  document.getElementById("addRecipeModal").style.display = "block";
+  loadRecipeForm();
+};
+
+// Function to close the modal
+function closeModal() {
+  document.getElementById("addRecipeModal").style.display = "none";
+}
+
+// Function to load the form HTML via AJAX
+function loadRecipeForm() {
+  fetch("/add-form/")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("addRecipeForm").innerHTML = html;
+    });
+}
+
+// Function to submit the form via AJAX
+document.getElementById("addRecipeForm").onsubmit = function (event) {
+  event.preventDefault();
+  const formData = new FormData(this);
+  // Retrieves the URL for posting the form data from a data attribute on the form.
+  const addRecipeForm = document.getElementById('addRecipeForm');
+  const postUrl = addRecipeForm.getAttribute('data-post-url');
+  fetch(postUrl, {
+    method: "POST",
+    body: formData,
+    headers: {
+      'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+    }
+  }).then(response => {
+    if (response.ok) {
+      closeModal();
+      location.reload();  // Refresh the page to show new recipe
+    } else {
+      alert("There was an error adding the recipe.");
+    }
+  });
+};
