@@ -4,6 +4,7 @@ from users.models import User
 from .forms import RecipeSearchForm
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
+from django.http import JsonResponse
 
 
 # Create your tests here.
@@ -333,3 +334,94 @@ class RecipeViewsProtectionsTest(TestCase):
             reverse("recipes:recipe_detail", args=[self.recipe.id])
         )  # Use the appropriate URL name
         self.assertEqual(response.status_code, 200)  # Should return 200 OK
+
+
+class RecipeModificationTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpass"
+        )
+        self.client.login(username="testuser", password="testpass")
+
+    def test_add_recipe_view_success(self):
+        # Valid data for adding a new recipe
+        data = {
+            "name": "Test Recipe",
+            "cooking_time": 30,
+            "ingredients": "ingredient1, ingredient2",
+            "directions": "Step 1: Do this\nStep 2: Do that",
+        }
+        response = self.client.post(reverse("recipes:recipe_add"), data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(Recipe.objects.filter(name="Test Recipe").exists())
+
+    def test_add_recipe_view_invalid_data(self):
+        # Test with invalid data (missing required fields)
+        response = self.client.post(reverse("recipes:recipe_add"), {"name": ""})
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(Recipe.objects.filter(name="").exists())
+
+    def test_delete_recipe_view(self):
+        # Create a recipe for deletion
+        recipe = Recipe.objects.create(
+            name="Recipe to Delete",
+            cooking_time=20,
+            ingredients="test ingredient",
+            directions="test directions",
+            pic=None,
+        )
+
+        # Perform the deletion
+        response = self.client.post(reverse("recipes:recipe_delete", args=[recipe.id]))
+
+        # Verify that the recipe is deleted
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(Recipe.objects.filter(id=recipe.id).exists())
+
+    def test_edit_recipe_view(self):
+        # Create a recipe to edit
+        recipe = Recipe.objects.create(
+            name="Original Recipe",
+            cooking_time=25,
+            ingredients="test ingredient",
+            directions="original directions",
+        )
+
+        # New data for the edit
+        new_data = {
+            "name": "Updated Recipe",
+            "cooking_time": 40,
+            "ingredients": "updated ingredient",
+            "directions": "updated directions",
+        }
+
+        response = self.client.post(
+            reverse("recipes:recipe_edit", args=[recipe.id]), new_data
+        )
+
+        # Refresh from the database
+        recipe.refresh_from_db()
+
+        # Verify that data was updated
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(recipe.name, "Updated Recipe")
+        self.assertEqual(recipe.cooking_time, 40)
+        self.assertEqual(recipe.ingredients, "updated ingredient")
+
+    def test_ajax_recipe_add(self):
+        # Sample valid data for AJAX add recipe
+        data = {
+            "name": "AJAX Recipe",
+            "cooking_time": 20,
+            "ingredients": "ajax ingredient1, ajax ingredient2",
+            "directions": "AJAX directions",
+        }
+        response = self.client.post(
+            reverse("recipes:recipe_add"), data, HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+        )
+
+        # Test for JSON response
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response, JsonResponse)
+        self.assertJSONEqual(response.content, {"status": "success"})
+        self.assertTrue(Recipe.objects.filter(name="AJAX Recipe").exists())
