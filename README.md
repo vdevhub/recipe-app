@@ -1,4 +1,4 @@
-# Recipe Application
+# CookPal - Recipe Application
 
 A Django-based web application for managing and sharing culinary recipes. Users can create, view, edit, and delete recipes, along with an interactive and responsive interface. The app supports image uploads for each recipe and includes a searchable, filterable recipe gallery.
 
