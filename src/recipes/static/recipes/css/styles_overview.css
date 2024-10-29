@@ -201,8 +201,8 @@ form button,
 #add-recipe-btn {
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: #ff9822;
-  color: white;
+  background-color: #f8dec1;
+  color: #2a2a2a;
   border: none;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
@@ -229,8 +229,10 @@ form button,
 }
 
 form button:hover,
-#show-analytics-btn:hover {
+#show-analytics-btn:hover,
+#add-recipe-btn:hover {
   background-color: #ff7d00;
+  color: #fff;
 }
 
 #analytics-section {
