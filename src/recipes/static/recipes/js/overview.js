@@ -61,3 +61,11 @@ document.getElementById("addRecipeForm").onsubmit = function (event) {
     }
   });
 };
+
+// Close the modal when clicking outside of modal content
+window.onclick = function (event) {
+  const modal = document.getElementById("addRecipeModal");
+  if (event.target === modal) {
+    closeModal();
+  }
+}

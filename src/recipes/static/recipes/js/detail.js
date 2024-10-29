@@ -91,3 +91,11 @@ document.getElementById("editRecipeForm").onsubmit = function (event) {
     }
   });
 };
+
+// Close the modal when clicking outside of modal content
+window.onclick = function (event) {
+  const modal = document.getElementById("editRecipeModal");
+  if (event.target === modal) {
+    closeEditModal();
+  }
+}
