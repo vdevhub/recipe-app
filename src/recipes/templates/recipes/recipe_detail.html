@@ -43,8 +43,21 @@
 
         <!-- Edit and Delete Buttons -->
         <div class="action-buttons">
-          <a href="{% url 'recipes:recipe_edit' recipe.id %}" class="edit-button">Edit</a>
+          <button class="edit-button" onclick="openEditModal()">Edit</button>
           <a href="#" class="delete-button" data-recipe-id="{{ recipe.id }}" onclick="confirmDelete(event)">Delete</a>
+        </div>
+      </div>
+
+      <!-- Edit Recipe Modal -->
+      <div id="editRecipeModal" class="modal" style="display: none;">
+        <div class="modal-content">
+          <span class="close-btn" onclick="closeEditModal()">&times;</span>
+          <h2>Edit Recipe</h2>
+          <form id="editRecipeForm" data-post-url="/recipes/{{ recipe.id }}/edit/">
+            {% csrf_token %}
+            <!-- Form fields will be loaded here by JavaScript -->
+            <button type="submit" class="submit-button">Save Changes</button>
+          </form>
         </div>
       </div>
 

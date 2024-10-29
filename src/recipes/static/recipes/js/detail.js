@@ -38,3 +38,56 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
+// Function to open the Edit Modal and load the form
+function openEditModal() {
+  document.getElementById("editRecipeModal").style.display = "block";
+  loadEditForm();
+}
+
+// Function to close the Edit Modal
+function closeEditModal() {
+  document.getElementById("editRecipeModal").style.display = "none";
+}
+
+// Function to load the form HTML via AJAX
+function loadEditForm() {
+  const editRecipeForm = document.getElementById('editRecipeForm');
+  const postUrl = editRecipeForm.getAttribute('data-post-url');
+  fetch(postUrl)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("editRecipeForm").innerHTML = data.html_form;
+
+      // Dynamically add submit button if it's missing
+      const submitButton = document.createElement("button");
+      submitButton.type = "submit";
+      submitButton.className = "submit-button";
+      submitButton.textContent = "Save Changes";
+      document.getElementById("editRecipeForm").appendChild(submitButton);
+    });
+}
+
+// Handle form submission via AJAX
+document.getElementById("editRecipeForm").onsubmit = function (event) {
+  event.preventDefault();
+  const formData = new FormData(this);
+  const editRecipeForm = document.getElementById('editRecipeForm');
+  const postUrl = editRecipeForm.getAttribute('data-post-url');
+  fetch(postUrl, {
+    method: "POST",
+    body: formData,
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+  }).then(response => {
+    if (response.ok) {
+      closeEditModal();
+      location.reload(); // Refresh to show updated recipe
+    } else {
+      response.json().then(data => {
+        alert("Error: " + JSON.stringify(data.errors));
+      });
+    }
+  });
+};

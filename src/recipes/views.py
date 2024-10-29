@@ -100,3 +100,21 @@ def recipe_delete(request, recipe_id):
         recipe.delete()
         return JsonResponse({"status": "success"}, status=200)
     return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+
+
+@login_required
+def recipe_edit(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+
+    if request.method == "POST":
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"status": "success"})
+        else:
+            return JsonResponse({"status": "error", "errors": form.errors}, status=400)
+
+    # For GET requests, render the form with existing recipe data
+    else:
+        form = RecipeForm(instance=recipe)
+        return JsonResponse({"html_form": form.as_p()})
