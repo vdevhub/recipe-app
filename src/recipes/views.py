@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from .models import Recipe
@@ -91,3 +91,12 @@ def recipe_add(request):
             return JsonResponse({"status": "success"}, status=200)
         else:
             return JsonResponse({"status": "error", "errors": form.errors}, status=400)
+
+
+@login_required
+def recipe_delete(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    if request.method == "POST":
+        recipe.delete()
+        return JsonResponse({"status": "success"}, status=200)
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)

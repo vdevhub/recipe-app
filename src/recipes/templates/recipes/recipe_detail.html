@@ -8,6 +8,7 @@
   <title>{{ recipe.name }}</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'recipes/css/styles_detail.css' %}">
+  <script src="{% static 'recipes/js/detail.js' %}" defer></script>
 </head>
 
 <body>
@@ -38,6 +39,12 @@
           <span class="difficulty">
             <span class="icon">🔥</span>{{ recipe.difficulty }}
           </span>
+        </div>
+
+        <!-- Edit and Delete Buttons -->
+        <div class="action-buttons">
+          <a href="{% url 'recipes:recipe_edit' recipe.id %}" class="edit-button">Edit</a>
+          <a href="#" class="delete-button" data-recipe-id="{{ recipe.id }}" onclick="confirmDelete(event)">Delete</a>
         </div>
       </div>
 
