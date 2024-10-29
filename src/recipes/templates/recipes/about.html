@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'recipes/css/about.css' %}">
+</head>
+
+<body>
+  <!-- Top Pane with About Link and Logout Button -->
+  <div class="top-pane">
+    <h1><a href="{% url 'recipes:recipe_overview' %}">CookPal</a></h1>
+    <div id="menu-buttons">
+      <a href="{% url 'recipes:about' %}">
+        <button class="menu-button">About</button></a>
+      <a href="{% url 'logout' %}">
+        <button class="menu-button">
+          <span class="logout-icon">↪</span> Logout
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- About Page Content -->
+  <div class="container about-content">
+    <h1>About the Developer</h1>
+    <p>Welcome to the "About" page! Here you’ll find more about me, including links to my work and ways to get in touch.
+    </p>
+
+    <div class="about-section">
+      <h2>Portfolio</h2>
+      <p>Check out my projects and contributions on my portfolio website.</p>
+      <a href="https://vdevhub.com" target="_blank" class="about-link">Visit My Portfolio</a>
+    </div>
+
+    <div class="about-section">
+      <h2>GitHub</h2>
+      <p>Explore the code behind this app and more on GitHub.</p>
+      <a href="https://github.com/vdevhub" target="_blank" class="about-link">GitHub Profile</a>
+    </div>
+
+    <div class="about-section">
+      <h2>LinkedIn</h2>
+      <p>Connect with me on LinkedIn.</p>
+      <a href="https://linkedin.com/in/veronikatr" target="_blank" class="about-link">LinkedIn Profile</a>
+    </div>
+  </div>
+</body>
+
+</html>
