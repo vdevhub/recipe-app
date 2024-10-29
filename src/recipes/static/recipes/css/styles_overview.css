@@ -49,6 +49,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  justify-items: center;
 }
 
 .recipe-card {
@@ -306,4 +307,77 @@ form button:hover,
 
 #addRecipeForm button[type="submit"]:hover {
   background-color: #e87e00;
+}
+
+/* Responsive styles for the recipes overview page */
+@media (max-width: 768px) {
+  .top-panel h1 {
+    font-size: 2.5rem;
+    /* Adjust heading size for smaller screens */
+  }
+
+  .recipe-card {
+    max-height: 350px;
+    width: 100%;
+  }
+
+  .recipe-grid {
+    gap: 15px;
+    /* Reduce gap between cards */
+  }
+
+  form input[type="text"] {
+    width: 80%;
+    /* Adjust input width for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .top-panel h1 {
+    font-size: 2rem;
+    /* Further adjust heading size for very small screens */
+  }
+
+  .recipe-card {
+    width: 100%;
+    /* Allow recipe cards to take full width */
+  }
+
+  form {
+    flex-direction: column;
+    /* Stack the form elements */
+    align-items: center;
+    /* Center the items */
+  }
+
+  form input[type="text"],
+  form button {
+    width: 100%;
+    /* Make inputs and buttons full width */
+    margin-bottom: 10px;
+    /* Add space between elements */
+    border-radius: 5px;
+  }
+
+  form input[type="text"] {
+    width: 94%;
+  }
+
+  #showAll {
+    margin-left: 0;
+  }
+
+  .charts-container {
+    flex-direction: column;
+    /* Stack chart items on small screens */
+    align-items: center;
+    /* Center chart items */
+  }
+
+  .chart-item {
+    flex: 0 0 100%;
+    /* Make chart items full width */
+    max-width: 100%;
+    /* Ensure full width */
+  }
 }
