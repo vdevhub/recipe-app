@@ -2,6 +2,10 @@
 
 A Django-based web application for managing and sharing culinary recipes. Users can create, view, edit, and delete recipes, along with an interactive and responsive interface. The app supports image uploads for each recipe and includes a searchable, filterable recipe gallery.
 
+![CookPal-Main](https://github.com/user-attachments/assets/31462622-2af2-434b-a7eb-cba0cf57a9d0)
+
+![CookPal-Recipes](https://github.com/user-attachments/assets/afa7fb7a-e019-481e-a454-47b1971d04aa)
+
 ## Features
 
 - **User Authentication:** Secure login and logout system.
