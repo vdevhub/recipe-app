@@ -70,3 +70,20 @@ body {
 a {
   text-decoration: none;
 }
+
+@media (max-width: 480px) {
+
+  /* Stack elements and reduce margins further for very small screens */
+  .top-pane {
+    padding: 10px;
+  }
+
+  .top-pane h1 {
+    font-size: 1.8rem;
+  }
+
+  .menu-button {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+}
