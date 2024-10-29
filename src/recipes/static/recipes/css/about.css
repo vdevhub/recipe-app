@@ -41,3 +41,59 @@
 .about-link:hover {
   text-decoration: underline;
 }
+
+/* Responsive styles for the About page */
+@media (max-width: 768px) {
+  .container.about-content {
+    padding: 15px;
+    /* Reduce padding for smaller screens */
+    margin: 40px 10px;
+  }
+
+  .container.about-content h1 {
+    font-size: 2rem;
+    /* Smaller font size for the heading */
+  }
+
+  .container.about-content p {
+    font-size: 1rem;
+    /* Smaller font size for paragraph */
+  }
+
+  .about-section h2 {
+    font-size: 1.6rem;
+    /* Adjust size for subheadings */
+  }
+
+  .about-link {
+    font-size: 1rem;
+    /* Adjust size for links */
+  }
+}
+
+@media (max-width: 480px) {
+  .container.about-content {
+    padding: 10px;
+    /* Further reduce padding for very small screens */
+  }
+
+  .container.about-content h1 {
+    font-size: 1.8rem;
+    /* Further reduce font size for heading */
+  }
+
+  .container.about-content p {
+    font-size: 0.9rem;
+    /* Further reduce font size for paragraph */
+  }
+
+  .about-section h2 {
+    font-size: 1.4rem;
+    /* Further reduce size for subheadings */
+  }
+
+  .about-link {
+    font-size: 0.9rem;
+    /* Further reduce size for links */
+  }
+}
