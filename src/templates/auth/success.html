@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,97 +6,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Logged Out</title>
-  {% load static %}
-  <style>
-    /* Reset and set full height for body and html */
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
-
-    /* Welcome page background with image and overlay */
-    .logout-page {
-      background: url("{% static 'recipes/images/app-bkg.jpg' %}") no-repeat center center/cover;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    /* Content container for logout message */
-    .container {
-      max-width: 600px;
-      padding: 30px;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      color: #ff9822;
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    p {
-      color: #fff;
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      display: inline-block;
-      background-color: #ff9822;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 1.2rem;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #e08e1f;
-    }
-
-    .success-icon {
-      font-size: 50px;
-      color: #ff9822;
-      margin-bottom: 20px;
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 600px) {
-      .container {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/success.css' %}">
 </head>
 
 <body>
