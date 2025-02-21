@@ -15,13 +15,14 @@ A Django-based web application for managing and sharing culinary recipes. Users 
 - **Dynamic Difficulty Calculation:** Calculates recipe difficulty based on cooking time and number of ingredients.
 - **Customizable Recipe Instructions:** Supports basic text formatting for clear recipe steps.
 
-## Technologies Used
+## Tech
 
 - **Django** - Backend framework
 - **JavaScript (AJAX)** - For smooth user interactions
 - **Bootstrap** - For styling and responsive design
 - **SQLite** - Default database for development
 - **HTML/CSS** - For user interface
+- **Heroku** - For app hosting
 
 ## Getting Started
 
