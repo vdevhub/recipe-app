@@ -90,7 +90,7 @@ To deploy this project in a production environment, consider using a WSGI server
 ```
 pip install gunicorn
 ```
-2. **RUn Gunicorn**
+2. **Run Gunicorn**
 ```
 gunicorn recipe_app.wsgi:application
 ```
